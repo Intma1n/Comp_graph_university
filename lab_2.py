@@ -39,8 +39,39 @@ def build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step):
     plt.show()
 
 
-def second_graph():
-    pass
+def second_graph(x,y,color_line): #my_linestyle, my_marker, step, transparency, width, x, y):
+    my_ax = plt.axes()
+    #x, y = get_xy(step, minx, maxx)
+    #set_text(my_ax)
+    #x = list(x)
+    #y = list(y)
+    #print(f'x = {x}. Type(x) = {type(x)}')
+    #print(f'y = {y}. Type(y) = {type(y)}')
+    #for i in x:
+        #for j in y:
+            #print(f'i = {i}')
+            #print(f'j = {j}')
+            #print(f'j[2] = {j[2]}')
+            #my_ax.fill_between(i, )
+    #for ind, i in enumerate(x):
+    #my_ax.set_figwidth(12)
+    #my_ax.set_figheight(5)
+    my_ax.plot(x, y,
+               color=color_line)
+               #linestyle=my_linestyle,
+               #marker=my_marker,
+               #alpha=transparency,
+               #linewidth=width)
+    plt.grid(True)
+
+    print(f'x = {x}')
+    print(f'y = {y}')
+    my_new_x = np.linspace(-10,10,100)
+    print(f'my_new_x = {my_new_x}')
+    #for i in y:
+    my_ax.fill_between(x[1], y[1], y[2], where=(y[2]>y[1]))
+    my_ax.set_facecolor('seashell')
+    plt.show()
 
 
 def main():
@@ -49,6 +80,7 @@ def main():
     r_my_step = int(input('Enter your x step: '))
     c_my_step = int(input('Enter your y step: '))
     build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step)
+
 
 
 if __name__ == '__main__':

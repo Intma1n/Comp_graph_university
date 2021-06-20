@@ -207,7 +207,7 @@ def second_graph(x,y,color_line): #my_linestyle, my_marker, step, transparency, 
     my_new_x = np.linspace(-10,10,100)
     print(f'my_new_x = {my_new_x}')
     #for i in y:
-    my_ax.fill_between(x[1], y[1], y[2], where=(y[2]>y[1]))
+    my_ax.fill_between(x[1], y[1], y[2])
     my_ax.set_facecolor('seashell')
     plt.show()
 
@@ -233,7 +233,7 @@ def main():
     xgrid, ygrid = np.meshgrid(x, y)
     zgrid = get_func(xgrid, ygrid)
     graph(xgrid=xgrid, ygrid=ygrid, color=my_color, step_x = my_step_x, step_y = my_step_y, my_type = my_type)
-    second_graph(x=zgrid, y=ygrid, color_line=my_color)
+    second_graph(x=ygrid, y=zgrid, color_line=my_color)
           #my_linestyle=my_linestyle,
           #my_marker=my_marker,
           #tep=my_step,
