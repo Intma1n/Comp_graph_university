@@ -8,14 +8,10 @@ def my_function(x, y):
     return f
 
 
-def build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step):
+def build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step,xgrid,ygrid,zgrid):
     my_fig = plt.figure(figsize=(10, 7))
     ax_3d = my_fig.add_subplot(projection='3d')
 
-    x = np.arange(-np.pi, np.pi, 0.2)
-    y = np.arange(-np.pi, np.pi, 0.2)
-    xgrid, ygrid = np.meshgrid(x, y)
-    zgrid = my_function(xgrid, ygrid)  # Наша функция
 
     if my_type_of_graph == 'surface':
         ax_3d.plot_surface(xgrid, ygrid, zgrid, rstride=r_my_step, cstride=c_my_step, cmap='plasma')
@@ -64,22 +60,40 @@ def second_graph(x,y,color_line): #my_linestyle, my_marker, step, transparency, 
                #linewidth=width)
     plt.grid(True)
 
-    print(f'x = {x}')
-    print(f'y = {y}')
-    my_new_x = np.linspace(-10,10,100)
-    print(f'my_new_x = {my_new_x}')
     #for i in y:
-    my_ax.fill_between(x[1], y[1], y[2], where=(y[2]>y[1]))
+    my_ax.fill_between(x[1], y[1], y[2])
     my_ax.set_facecolor('seashell')
     plt.show()
 
 
 def main():
+
+    x = np.arange(-np.pi, np.pi, 0.2)
+    y = np.arange(-np.pi, np.pi, 0.2)
+    xgrid, ygrid = np.meshgrid(x, y)
+    zgrid = my_function(xgrid, ygrid)  # Наша функция
+
     my_type_of_graph = input('Enter your graph type(surface, wireframe, scatter, contour): ')
     my_color = input('Enter your color(red,green,blue,yellow): ')
     r_my_step = int(input('Enter your x step: '))
     c_my_step = int(input('Enter your y step: '))
-    build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step)
+    size_slice = int(input('Enter slice size: '))
+    new_xgrid = []
+    new_ygrid = []
+    new_zgrid = []
+    zero_new_zgrid = []
+    for i in range(32):
+        zero_new_zgrid.append([])
+        for j in range(32):
+            zero_new_zgrid[i].append(0)
+
+    print(zero_new_zgrid)
+
+    for i in range(size_slice):
+        zero_new_zgrid.pop(i)
+        zero_new_zgrid.append(zgrid[i])
+
+    build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step,xgrid=xgrid, ygrid=ygrid, zgrid=zero_new_zgrid)
 
 
 
