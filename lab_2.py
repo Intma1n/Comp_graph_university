@@ -4,14 +4,13 @@ from mpl_toolkits.mplot3d import Axes3D
 
 
 def my_function(x, y):
-    f = np.cos(x*y)*np.cos(np.sqrt(x**2 * y**2))
+    f = np.cos(x * y) * np.cos(np.sqrt(x ** 2 * y ** 2))
     return f
 
 
-def build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step,xgrid,ygrid,zgrid):
+def build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step, xgrid, ygrid, zgrid):
     my_fig = plt.figure(figsize=(10, 7))
     ax_3d = my_fig.add_subplot(projection='3d')
-
 
     if my_type_of_graph == 'surface':
         ax_3d.plot_surface(xgrid, ygrid, zgrid, rstride=r_my_step, cstride=c_my_step, cmap='plasma')
@@ -35,39 +34,42 @@ def build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step,xgrid,ygrid,
     plt.show()
 
 
-def second_graph(x,y,color_line): #my_linestyle, my_marker, step, transparency, width, x, y):
+def second_graph(x, y, z, color_line):  # my_linestyle, my_marker, step, transparency, width, x, y):
     my_ax = plt.axes()
-    #x, y = get_xy(step, minx, maxx)
-    #set_text(my_ax)
-    #x = list(x)
-    #y = list(y)
-    #print(f'x = {x}. Type(x) = {type(x)}')
-    #print(f'y = {y}. Type(y) = {type(y)}')
-    #for i in x:
-        #for j in y:
-            #print(f'i = {i}')
-            #print(f'j = {j}')
-            #print(f'j[2] = {j[2]}')
-            #my_ax.fill_between(i, )
-    #for ind, i in enumerate(x):
-    #my_ax.set_figwidth(12)
-    #my_ax.set_figheight(5)
-    my_ax.plot(x, y,
+    # x, y = get_xy(step, minx, maxx)
+    # set_text(my_ax)
+    # x = list(x)
+    # y = list(y)
+    # print(f'x = {x}. Type(x) = {type(x)}')
+    # print(f'y = {y}. Type(y) = {type(y)}')
+    # for i in x:
+    # for j in y:
+    # print(f'i = {i}')
+    # print(f'j = {j}')
+    # print(f'j[2] = {j[2]}')
+    # my_ax.fill_between(i, )
+    # for ind, i in enumerate(x):
+    # my_ax.set_figwidth(12)
+    # my_ax.set_figheight(5)
+    my_ax.plot(y, z,
                color=color_line)
-               #linestyle=my_linestyle,
-               #marker=my_marker,
-               #alpha=transparency,
-               #linewidth=width)
+    # linestyle=my_linestyle,
+    # marker=my_marker,
+    # alpha=transparency,
+    # linewidth=width)
     plt.grid(True)
 
-    #for i in y:
-    my_ax.fill_between(x[1], y[1], y[2])
+    for i in range(len(y)):
+         my_ax.fill_between(x[i], z[i], z[3])
     my_ax.set_facecolor('seashell')
+
+    # for i in y:
+    # my_ax.fill_between(x[1], y[1], y[2])
+    # my_ax.set_facecolor('seashell')
     plt.show()
 
 
 def main():
-
     x = np.arange(-np.pi, np.pi, 0.2)
     y = np.arange(-np.pi, np.pi, 0.2)
     xgrid, ygrid = np.meshgrid(x, y)
@@ -82,19 +84,31 @@ def main():
     new_ygrid = []
     new_zgrid = []
     zero_new_zgrid = []
+    new_zeros = []
     for i in range(32):
-        zero_new_zgrid.append([])
-        for j in range(32):
-            zero_new_zgrid[i].append(0)
+        new_zeros.append(0)
+    # for i in range(32):
+    #     zero_new_zgrid.append([])
+    #     for j in range(32):
+    #         zero_new_zgrid[i].append(0)
 
+    print(len(zgrid))
+    print(len(zero_new_zgrid))
     print(zero_new_zgrid)
 
     for i in range(size_slice):
-        zero_new_zgrid.pop(i)
+        #zero_new_zgrid.pop(i)
         zero_new_zgrid.append(zgrid[i])
+    for j in range(32 - size_slice):
+        zero_new_zgrid.append(new_zeros)
 
-    build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step,xgrid=xgrid, ygrid=ygrid, zgrid=zero_new_zgrid)
 
+    print(len(zgrid))
+    print(len(zero_new_zgrid))
+    print(zero_new_zgrid)
+
+    build_3d_graph(my_type_of_graph, my_color, r_my_step, c_my_step, xgrid=xgrid, ygrid=ygrid, zgrid=zero_new_zgrid)
+    second_graph(xgrid, ygrid, zero_new_zgrid, color_line=my_color)
 
 
 if __name__ == '__main__':
